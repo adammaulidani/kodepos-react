@@ -16,7 +16,7 @@ class Form extends React.Component {
 
   _onClick(){
     this.setState({
-      start: true
+      start: !this.state.start
     });
   }
 
@@ -28,12 +28,18 @@ class Form extends React.Component {
 
   render(){
     var konten;
+    var button_class;
+    var button_name;
 
     if(this.state.start){
-      konten = <DataPos kode={this.state.kode} />
+      konten = <DataPos kode={this.state.kode} />;
+      button_class = 'btn btn-warning';
+      button_name  = 'Kembali';
     }
     else {
       konten = '';
+      button_class = 'btn btn-info';
+      button_name  = 'Cari';
     }
 
     return (
@@ -46,12 +52,12 @@ class Form extends React.Component {
               <input type="text" className="form-control" name="kode_pos" onChange={this._kodeChange} />
             </div>
             <div className="form-group">
-              <input type="button" className="btn btn-info" name="cari" value="Cari" onClick={this._onClick} />
+              <input type="button" className={button_class} name="cari" value={button_name} onClick={this._onClick} />
             </div>
           </div>
         </div>
-        {/* Konten */}
 
+        {/* Konten */}
         <div className="container" style={{paddingTop: 50, paddingBottom: 50}} >
           {konten}
         </div>

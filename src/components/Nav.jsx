@@ -14,7 +14,7 @@ const Nav = (props) => (
       <div className="collapse navbar-collapse" id="nav">
         <ul className="nav navbar-nav navbar-right">
           <li><a href="#a">PANDUAN</a></li>
-          <li><a href="https://github.com/fannyhasbi/kodepos-react" target="_blank">CODE</a></li>
+          <li><a href="https://github.com/fannyhasbi/kodepos-react" target="_blank" rel="noopener noreferrer">CODE</a></li>
         </ul>
       </div>
     </div>

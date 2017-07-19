@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import DataPos from './DataPos';
 
@@ -8,6 +9,8 @@ class Form extends React.Component {
     this.state = {
       kode: '',
       start: false,
+      loader: true,
+      data: []
     }
 
     this._kodeChange = this._kodeChange.bind(this);
@@ -15,8 +18,15 @@ class Form extends React.Component {
   }
 
   _onClick(){
-    this.setState({
-      start: !this.state.start
+    const self = this;
+    const kode = this.state.kode;
+
+    axios.get('http://kalarau.net/api/v1/kodepos/'+kode).then(function(response){
+      self.state.data = response.data.kodepos;
+      self.setState({
+        start: true,
+        data: self.state.data
+      });
     });
   }
 
@@ -28,18 +38,12 @@ class Form extends React.Component {
 
   render(){
     var konten;
-    var button_class;
-    var button_name;
 
     if(this.state.start){
-      konten = <DataPos kode={this.state.kode} />;
-      button_class = 'btn btn-warning';
-      button_name  = 'Kembali';
+      konten = <DataPos datapos={this.state.data} />;
     }
     else {
       konten = '';
-      button_class = 'btn btn-info';
-      button_name  = 'Cari';
     }
 
     return (
@@ -52,7 +56,7 @@ class Form extends React.Component {
               <input type="text" className="form-control" name="kode_pos" onChange={this._kodeChange} />
             </div>
             <div className="form-group">
-              <input type="button" className={button_class} name="cari" value={button_name} onClick={this._onClick} />
+              <input type="button" className="btn btn-info" name="cari" value="Cari" onClick={this._onClick} />
             </div>
           </div>
         </div>
